@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import GiveToPlayer from "./components/giveToPlayer"
 import ShowingLink from "./components/ShowingLink"
 import { useRouter } from "next/navigation"
@@ -7,19 +7,29 @@ import DistributionDone from "./components/distributionDone"
 import { Link } from "../killer-game/types"
 
 export default function Distribution() {
-  const loadFromLocalStorage = (key: string) => {
+  const loadChainFromLocalStorage = (key: string): Link[] => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem(key)
-  }
+      const string = localStorage.getItem(key)!
+      if (string === null) {
+        router.push("/")
+      }
+      const chain: Link[] = JSON.parse(string)
+      return chain
+    }
+    return []
   }
 
   const router = useRouter()
 
-  const [chain, setChain] = useState<Link[]>(JSON.parse(loadFromLocalStorage("chain")!))
+  const [chain, setChain] = useState<Link[]>(loadChainFromLocalStorage("chain"))
 
   const [linkIndex, setLinkIndex] = useState<number>(0)
   const [step, setStep] = useState<"ShowingAction" | "GiveToPlayer" | "DistributionDone">("GiveToPlayer")
-  const [buttonText, setButtonText] = useState<string>(`Je suis ${chain[0].player.name}` || "")
+  const [buttonText, setButtonText] = useState<string>("")
+
+  useEffect(() => {
+    //setButtonText(`Je suis ${chain[linkIndex].player.name}`)
+  }, [chain])
 
   const updateStep = () => {
     console.log(linkIndex)
@@ -37,13 +47,15 @@ export default function Distribution() {
   }
 
   const stepRender = (step: "ShowingAction" | "GiveToPlayer" | "DistributionDone") => {
+    if (chain.length < 1)
+      return
     switch (step) {
       case "DistributionDone":
         return <DistributionDone />
       case "GiveToPlayer":
         return <GiveToPlayer name={chain[linkIndex].player.name} />
       case "ShowingAction":
-        return <ShowingLink link={chain[linkIndex]} />
+        return <ShowingLink player={chain[linkIndex].player} target={chain[linkIndex].target} action={chain[linkIndex].action} />
       default:
         <></>
         break;

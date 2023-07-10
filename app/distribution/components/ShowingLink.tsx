@@ -1,9 +1,18 @@
-import { Link } from "@/app/types"
+import { Player } from "@/app/killer-game/types"
+import { Action, Link } from "@/app/types"
 
-const ShowingLink: React.FC<Link> = (link) => {
+
+interface LinkProps {
+    player: Player,
+    target: Player,
+    action: Action
+}
+
+const ShowingLink: React.FC<LinkProps> = ({ player, target, action }) => {
     return (<>
-        Ta cible est : {link.link.target.name} <br/>
-        Tu dois : {link.link.action.description}
+        <h1>{player.name}</h1>
+        Ta cible est : {target.name} <br />
+        Tu dois : {action.description}
     </>)
 }
 
