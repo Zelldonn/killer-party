@@ -28,7 +28,7 @@ export default function Distribution() {
   const [buttonText, setButtonText] = useState<string>("")
 
   useEffect(() => {
-    //setButtonText(`Je suis ${chain[linkIndex].player.name}`)
+    setButtonText(`Je suis ${chain[linkIndex].player.name}`)
   }, [chain])
 
   const updateStep = () => {
