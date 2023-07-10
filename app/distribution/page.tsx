@@ -8,7 +8,9 @@ import { Link } from "../killer-game/types"
 
 export default function Distribution() {
   const loadFromLocalStorage = (key: string) => {
-    return localStorage.getItem(key)
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(key)
+  }
   }
 
   const router = useRouter()

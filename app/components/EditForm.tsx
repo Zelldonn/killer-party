@@ -10,7 +10,7 @@ const EditForm: React.FC<EditFormProps> = ({ index, handleEventForm, playerName 
     useEffect(() => {
         setName(playerName)
         console.log(playerName)
-    }, [name])
+    }, [playerName])
     return (
         <form>
             <div className="sm:col-span-4">
