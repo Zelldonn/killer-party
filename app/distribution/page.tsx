@@ -32,7 +32,6 @@ export default function Distribution() {
   }, [chain])
 
   const updateStep = () => {
-    console.log(linkIndex)
     if (step === "ShowingAction" && linkIndex < chain.length - 1) {
       setButtonText(`Je suis ${chain[linkIndex + 1].player.name}`)
       setLinkIndex(linkIndex + 1)
@@ -63,7 +62,7 @@ export default function Distribution() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen  flex-col items-center justify-between p-10">
       {stepRender(step)}
       {step !== "DistributionDone" && <button onClick={() => updateStep()} className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-regular leading-6 text-white">{buttonText}</button>}
     </main>

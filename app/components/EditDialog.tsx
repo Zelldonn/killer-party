@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react"
 
-interface EditFormProps {
+interface EditDialogProps {
     index: number,
     handleEventForm: Function,
     playerName: string
 }
-const EditForm: React.FC<EditFormProps> = ({ index, handleEventForm, playerName }) => {
+const EditDialog: React.FC<EditDialogProps> = ({ index, handleEventForm, playerName }) => {
     const [name, setName] = useState<string>("")
     useEffect(() => {
         setName(playerName)
-        console.log(playerName)
     }, [playerName])
     return (
         <form>
@@ -20,7 +19,7 @@ const EditForm: React.FC<EditFormProps> = ({ index, handleEventForm, playerName 
                     </label>
                 </div>
                 <button
-                    onClick={() => { handleEventForm("quit") }}
+                    onClick={(e) => {e.preventDefault(); handleEventForm("quit") }}
                     className="absolute top-2 right-2 rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 "
                 >
                     X
@@ -32,6 +31,7 @@ const EditForm: React.FC<EditFormProps> = ({ index, handleEventForm, playerName 
                             name="username_"
                             id="username"
                             value={name}
+                            autoFocus
                             onChange={(e) => { setName(e.target.value) }}
                             required
                             autoComplete="username"
@@ -47,12 +47,14 @@ const EditForm: React.FC<EditFormProps> = ({ index, handleEventForm, playerName 
                 <button
                     type="submit"
                     className="flex justify-end rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    onClick={(e) => {e.preventDefault(); handleEventForm("update", name) }}
                 >
                     Sauvegarder
                 </button>
                 <button
                     type="submit"
                     className="flex justify-end px-3 py-1.5 text-sm font-semibold leading-6 text-black "
+                    onClick={(e) => {e.preventDefault(); handleEventForm("delete") }}
                 >
                     Supprimer
                 </button>
@@ -60,3 +62,4 @@ const EditForm: React.FC<EditFormProps> = ({ index, handleEventForm, playerName 
         </form>
     )
 }
+export default EditDialog
