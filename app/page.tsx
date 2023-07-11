@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-10 ">
-      <SettingsIcon onClick={()=>{router.push('/settings')}} className='absolute top-7 right-7 fill-gray-600'/>
+      <SettingsIcon onClick={()=>{router.push('/settings')}} className='absolute top-7 right-7 fill-gray-300'/>
       <header className='text-xl'>Le jeu du killer</header>
       <form className="w-full" onSubmit={(e) => { e.preventDefault(); setPlayers([...players, { name }]); setName("") }}>
         <div className="sm:col-span-4 ">
@@ -86,7 +86,7 @@ export default function Home() {
         <div className='flex justify-end mt-5'>
           <button
             type="submit"
-            className="flex justify-end rounded-md bg-indigo-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex justify-end rounded-md bg-slate-800 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Ajouter
           </button>
@@ -98,7 +98,7 @@ export default function Home() {
         {index !== -1 && <EditDialog index={index} playerName={players[index].name} handleEventForm={handleEventForm} />}
       </dialog>
       <button onClick={() => CreateChain()}
-        className="flex w-full justify-center rounded-full bg-indigo-600 px-3 py-2.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
+        className="flex w-full justify-center rounded-full bg-slate-800 px-3 py-2.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
       >
         Lancer une partie
       </button>

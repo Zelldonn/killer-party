@@ -30,7 +30,6 @@ export default function Settings() {
     }
 
     const saveToLocalStorage = (key: string, value: string) => {
-        console.log(value)
         localStorage.setItem(key, value)
     }
 
@@ -82,7 +81,7 @@ export default function Settings() {
             <div className='flex justify-end mt-5'>
                 <button
                     type="submit"
-                    className="flex justify-end rounded-md bg-indigo-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="flex justify-end rounded-md bg-slate-800 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                     Ajouter
                 </button>

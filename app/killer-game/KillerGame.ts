@@ -4,7 +4,7 @@ import { Action, Link, Player } from "./types";
 export class KillerGame {
     private players: Player[] = []
     private chain: Link[] = []
-    private actions: Action[] = actions
+    private actions: Action[] = []
     /**
      * addPlayer
      */
@@ -44,16 +44,39 @@ export class KillerGame {
         return array;
     };
 
+    public loadActionFromLocalStorage = (key: string): Action[] => {
+        if (typeof window !== 'undefined') {
+            const string = localStorage.getItem(key)!
+            if (string === null) {
+                return []
+            }
+            const actions: Action[] = JSON.parse(string)
+            return actions
+        }
+        return []
+    }
+
+
 
     /**
      * newGame
      */
     public newGame(): Link[] {
+        this.actions = actions
+        const customActions = this.loadActionFromLocalStorage("actions")
+        for (let i = 0; i < customActions.length; i++) {
+            this.actions.push(customActions[i])
+        }
+        console.log(this.actions)
         let pickedActions: Action[] = []
         for (let i = 0; i < this.players.length; i++) {
             let index = Math.floor(Math.random() * this.actions.length)
             pickedActions.push(this.actions[index])
         }
+
+
+      
+
         console.log(pickedActions)
 
         // shuffle player list

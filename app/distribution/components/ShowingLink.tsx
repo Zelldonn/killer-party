@@ -10,9 +10,13 @@ interface LinkProps {
 
 const ShowingLink: React.FC<LinkProps> = ({ player, target, action }) => {
     return (<>
-        <h1>{player.name}</h1>
-        Ta cible est : {target.name} <br />
-        Tu dois : {action.description}
+        <h1 className="text-blue-900 text-2xl font-bold">{player.name}</h1>
+        <div className="flex flex-col items-center">
+            Ta cible est : <br /> <span className="text-red-900 text-2xl font-bold">{target.name}</span> <br />
+        </div>
+        <div className="flex flex-col items-center">
+            Ton action :<br /> <span className="text-indigo-700 text-lg text-center">{action.description}</span>
+        </div>
     </>)
 }
 
