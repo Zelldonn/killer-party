@@ -1,14 +1,14 @@
 export type Player = {
     name: string,
-    email?: string
+    role?: "vip" | "bodyguard",
+    target: string
+    action: Action
+    word?: string
 }
 
 export type Action = {
-    description: string
-}
+    description: string,
+    hint?: string
+} 
 
-export type Link = {
-    player: Player,
-    target: Player,
-    action: Action 
-}
+export type Binome = string[]

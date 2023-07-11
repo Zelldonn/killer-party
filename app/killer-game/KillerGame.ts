@@ -1,30 +1,33 @@
+import { cpSync } from "fs";
 import actions from "./data/actions";
-import { Action, Link, Player } from "./types";
+import themes from "./data/themes";
+import { Action, Binome, Player } from "./types";
+import { TransgenderRounded } from "@mui/icons-material";
 
 export class KillerGame {
-    private players: Player[] = []
-    private chain: Link[] = []
+    private playersName: string[] = []
+    private chain: Player[] = []
     private actions: Action[] = []
     /**
      * addPlayer
      */
-    public addPlayer(player: Player) {
-        this.players.push(player)
+    public addPlayer(name: string) {
+        this.playersName.push(name)
     }
 
     /**
      * removePlayer
      */
     public removePlayerByIndex(index: number) {
-        const removedPlayer = this.players.splice(index, 1)
+        const removedPlayer = this.playersName.splice(index, 1)
         console.log(`Player removed : ${removedPlayer}`)
     }
 
     /**
      * editPlayer
      */
-    public editPlayerByIndex(index: number, newPlayer: Player) {
-        const editedPlayer = this.players[index] = newPlayer
+    public editPlayerByIndex(index: number, newPlayer: string) {
+        const editedPlayer = this.playersName[index] = newPlayer
         console.log(`Player removed : ${editedPlayer}`)
     }
 
@@ -32,7 +35,7 @@ export class KillerGame {
      * getPlayers
      */
     public getPlayers() {
-        return this.players
+        return this.playersName
     }
 
     // declare the function 
@@ -57,55 +60,105 @@ export class KillerGame {
     }
 
 
+    /**
+     * createTeamsFromPlayers
+     */
+    public createTeamsFromPlayers(): string[][] {
+        const shuffledPlayers: string[] = this.shuffle(this.playersName)
+
+        const playerCountIsPair = shuffledPlayers.length % 2 === 0
+
+        let teams: string[][] = []
+        console.log(playerCountIsPair)
+        if (!playerCountIsPair) {
+            teams.push(shuffledPlayers.splice(0, 3))
+        }
+
+        while (shuffledPlayers.length !== 0) {
+            teams.push(shuffledPlayers.splice(0, 2))
+        }
+        return teams
+
+    }
 
     /**
-     * newGame
+     * pickActionsFromDictionnary
      */
-    public newGame(): Link[] {
+    public pickActionsFromDictionnary(count: number): Action[] {
         this.actions = actions
         const customActions = this.loadActionFromLocalStorage("actions")
         for (let i = 0; i < customActions.length; i++) {
             this.actions.push(customActions[i])
         }
-        console.log(this.actions)
         let pickedActions: Action[] = []
-        for (let i = 0; i < this.players.length; i++) {
+        for (let i = 0; i < count; i++) {
             let index = Math.floor(Math.random() * this.actions.length)
             pickedActions.push(this.actions[index])
         }
+        return pickedActions
+    }
 
+    /**
+     * assignWordToEachTeam
+     */
+    public createChainFromTeams(teams: Binome[]): Player[] {
+        const randomIndex = Math.floor(Math.random() * themes.length)
+        const selectedTheme = themes[randomIndex]
+        console.log(selectedTheme)
+        const numbersOfLink = teams.length - 1
+        const selectedActions = this.pickActionsFromDictionnary(numbersOfLink + 1)
 
-      
-
-        console.log(pickedActions)
-
-        // shuffle player list
-        let players = this.shuffle(this.players)
-        console.log(players)
         // Pick a player
-        let nextPlayer = players.pop()!
-        const numbersOfLink = this.players.length
+        console.log(teams[0], teams[1], teams[2])
+        let nextBinome = teams.pop()!
+        console.log(nextBinome)
         for (let i = 0; i < numbersOfLink; i++) {
             // Pick a target
-            console.log("Players remaining : ", players.length)
-            let target = players.pop()!
-            let action = pickedActions.pop()!
-            // Populate chain
-            let link: Link = { action, player: nextPlayer, target }
-            // nextPlayer is the target
-            nextPlayer = target
-            // add the chains to the link
-            this.chain.push(link)
-            console.log("Players remaining : ", players.length)
-        }
-        let action = pickedActions.pop()!
-        let target = this.chain[0].player
-        let link: Link = { action, player: nextPlayer, target }
-        this.chain.push(link)
+            let targetedBinome = teams.pop()!
+            let action = selectedActions.pop()!
+            let word = selectedTheme.pop()
 
+            let player: Player = { name: nextBinome[0], action, target: "Trouve ton ou tes coéquipiers pour avoir ta cible", word }
+            // add the chains to the link
+            this.chain.push(player)
+            for (let z = 1; z < nextBinome.length; z++) {
+                let player: Player = { name: nextBinome[z], action: { description: "Trouve ton ou tes coéquipiers pour avoir ta cible" }, target: targetedBinome[z], word }
+                // add the chains to the link
+                this.chain.push(player)
+            }
+            // nextPlayer is the target
+            nextBinome = targetedBinome
+        }
+        let action = selectedActions.pop()!
+        let targetedPlayer = this.chain[0].name
+        let word = selectedTheme.pop()
+
+        let player: Player = { name: nextBinome[0], action, target: "Trouve ton ou tes coéquipiers pour avoir ta cible", word }
+        // add the chains to the link
+        this.chain.push(player)
+        for (let z = 1; z < nextBinome.length; z++) {
+            let player: Player = { name: nextBinome[z], action: { description: "Trouve ton ou tes coéquipiers pour avoir ta cible" }, target: targetedPlayer, word }
+            // add the chains to the link
+            this.chain.push(player)
+        }
 
         const suffledChain = this.shuffle(this.chain)
-        return suffledChain
+        return this.chain
+    }
+
+    /**
+     * newGame
+     */
+    public newGame(): Player[] {
+
+        // Create teams
+
+        let teams = this.createTeamsFromPlayers()
+        console.log(teams)
+        let chainPlayers = this.createChainFromTeams(teams)
+        console.log(chainPlayers)
+        return chainPlayers
+
 
     }
 }
