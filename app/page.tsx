@@ -54,8 +54,10 @@ export default function Home() {
       killerGame.addPlayer(player)
     });
     const chain = killerGame.newGame()
-    saveToLocalStorage("chain", JSON.stringify(chain))
-    router.push("/distribution")
+    if(chain.length > 0 ){
+      saveToLocalStorage("chain", JSON.stringify(chain))
+      router.push("/distribution")
+    }
   }
 
   return (

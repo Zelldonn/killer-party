@@ -64,20 +64,13 @@ export class KillerGame {
     public newGame(): Link[] {
         this.actions = actions
         const customActions = this.loadActionFromLocalStorage("actions")
-        for (let i = 0; i < customActions.length; i++) {
-            this.actions.push(customActions[i])
-        }
-        console.log(this.actions)
-        let pickedActions: Action[] = []
-        for (let i = 0; i < this.players.length; i++) {
-            let index = Math.floor(Math.random() * this.actions.length)
-            pickedActions.push(this.actions[index])
+
+        if (customActions.length < this.players.length) {
+            alert(`Le nombre d'action est insuffisant par rapport au nombre de joueur. (${customActions.length}/${this.players.length}). Veuillez en ajouter dans les paramètres.`)
+            return []
         }
 
-
-      
-
-        console.log(pickedActions)
+        let pickedActions = this.shuffle(customActions)
 
         // shuffle player list
         let players = this.shuffle(this.players)
