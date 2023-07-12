@@ -66,7 +66,7 @@ export default function Settings() {
                     <div className="flex rounded-md text-md shadow-sm h-28 ring-1 ring-inset ring-gray-300 focus-within:ring-2  focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                         <textarea
                             name="action"
-                            id="username"
+                            id="Description"
                             rows={5}
                             value={action.description}
                             onChange={(e) => { setAction({ description: e.target.value }) }}

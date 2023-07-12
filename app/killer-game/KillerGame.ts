@@ -1,13 +1,10 @@
-import { cpSync } from "fs";
-import actions from "./data/actions";
+import defaultActions from "./data/actions";
 import themes from "./data/themes";
 import { Action, Binome, Player } from "./types";
-import { TransgenderRounded } from "@mui/icons-material";
 
 export class KillerGame {
     private playersName: string[] = []
     private chain: Player[] = []
-    private actions: Action[] = []
     /**
      * addPlayer
      */
@@ -85,15 +82,21 @@ export class KillerGame {
      * pickActionsFromDictionnary
      */
     public pickActionsFromDictionnary(count: number): Action[] {
-        this.actions = actions
+        console.log("Actions:", defaultActions)
+        let actions = defaultActions
         const customActions = this.loadActionFromLocalStorage("actions")
-        for (let i = 0; i < customActions.length; i++) {
-            this.actions.push(customActions[i])
-        }
+        actions = actions.concat(customActions)
+
         let pickedActions: Action[] = []
+
+        if (actions.length < count) {
+            alert(`Le nombre d'action est insuffisant par rapport au nombre d'équipe. (${actions.length}/${count}). Veuillez en ajouter dans les paramètres.`)
+            return []
+        }
+        const suffledActions = this.shuffle(actions)
         for (let i = 0; i < count; i++) {
-            let index = Math.floor(Math.random() * this.actions.length)
-            pickedActions.push(this.actions[index])
+            const action = suffledActions.pop()!
+            pickedActions.push(action)
         }
         return pickedActions
     }
@@ -107,6 +110,7 @@ export class KillerGame {
         console.log(selectedTheme)
         const numbersOfLink = teams.length - 1
         const selectedActions = this.pickActionsFromDictionnary(numbersOfLink + 1)
+        if (selectedActions.length === 0) return []
 
         // Pick a player
         console.log(teams[0], teams[1], teams[2])

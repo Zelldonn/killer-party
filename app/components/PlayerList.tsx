@@ -10,9 +10,6 @@ const PlayerList: React.FC<PlayerProps> = ({ players, handleClick }) => {
     );
     return (
         <div className="w-full h-1/4 max-h-60 overflow-scroll ">
-            <div className="mb-2">
-                <span className="text-cyan-600 font-bold ">{players.length > 0 ? players.length : ""}</span> {` `} {players.length === 0 ? "Aucun joueur" : players.length > 1 ? "joueurs" : "joueur"} <span className="text-sm italic ">6 minimum</span> 
-            </div>
             {playerList}
         </div>
     )

@@ -21,18 +21,23 @@ export default function Distribution() {
 
   const router = useRouter()
 
-  const [chain, setChain] = useState<Player[]>(loadChainFromLocalStorage("chain"))
+  const [chain, setChain] = useState<Player[]>([])
 
   const [linkIndex, setLinkIndex] = useState<number>(0)
   const [step, setStep] = useState<"ShowingAction" | "GiveToPlayer" | "DistributionDone">("GiveToPlayer")
   const [buttonText, setButtonText] = useState<string>("")
 
   useEffect(() => {
-    setButtonText(`Je suis ${chain[linkIndex].name}`)
-  }, [chain])
+    const chain_ = loadChainFromLocalStorage("chain")
+    setChain(chain_)
+    setButtonText(`Je suis ${chain_[linkIndex].name}`)
+  }, [])
 
   const handlePrevious = () => {
     setStep("GiveToPlayer")
+    if(linkIndex === 0 && step === "GiveToPlayer"){
+      router.push("/")
+    }
     if (linkIndex === 0) {
       setLinkIndex(0)
       setButtonText(`Je suis ${chain[0].name}`)

@@ -1,15 +1,6 @@
-export default [
-    { description: "Faites en sorte que votre victime prononce son numéro de téléphone et envoi un sms à chacun de vous", hint:"Technologie" },
-    { description: "Faites en sorte que votre victime prenne un selfie avec vous (La victime doit prendre la photo)" },
-    { description: "Faites en sorte que votre victime vous prépare un petit en-cas ou une collation (pas juste un verre ou un simple gateau)" },
-    { description: "Faites en sorte que votre victime entame une discussion autour de la saga Harry Potter avec vous (la victime doit se voir impliqué dans la disccusion)" },
-    { description: "Faites en sorte que votre victime vous lance a chacun une cacahuète (ou tout autre aliment) que vous devez rattraper dans votre bouche" },
-    { description: "Action n°6" },
-    { description: "Action n°7" },
-    { description: "Action n°8" },
-    { description: "Action n°9" },
-    { description: "Action n°10" },
-    { description: "Action n°11" },
-    { description: "Action n°12" },
-    { description: "Action n°13" },
+import { Action } from "../types"
+
+const actions: Action[] = [
+
 ]
+export default actions

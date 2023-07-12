@@ -18,8 +18,8 @@ const ShowingLink: React.FC<LinkProps> = ({ player, giveToPreviousPlayer }) => {
             <div className="text-center text-white text-xl font-black">{player.name}</div>
         </div>
         <div className="flex flex-col items-left text-center mx-5">
-            <div className="text-left"><span className="text-black text-sm font-black">Ta cible : </span><span className="text-black text-sm font-normal">{player.target}</span></div>
-            <div className="text-left"><span className="text-black text-sm font-black">Ton action : </span><span className="text-black text-sm font-normal">{player.action.description}</span></div>
+            <div className="text-left"><span className="text-black text-sm font-black">Votre cible : </span><span className="text-black text-sm font-normal">{player.target}</span></div>
+            <div className="text-left"><span className="text-black text-sm font-black">Votre action : </span><span className="text-black text-sm font-normal">{player.action.description}</span></div>
         </div>
 
         <div className="flex flex-col items-center text-center">
