@@ -83,7 +83,7 @@ export default function Home() {
       <div className="w-full h-1/4 max-h-60">
         <div className='text-center'>
           <header className='text-xl'>Le jeu du killer</header>
-          <div onClick={() => { router.push('/distribution') }} className="w-56 h-8 bg-zinc-600 py-5 rounded-3xl justify-center items-center gap-2 inline-flex">
+          <div onClick={() => { router.push('/distribution/last') }} className="w-56 h-8 bg-zinc-600 py-5 rounded-3xl justify-center items-center gap-2 inline-flex">
             <div className="text-center text-white text-xs font-normal">Revoir la dernière distribution</div>
           </div>
         </div>

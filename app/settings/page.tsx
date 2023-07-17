@@ -22,7 +22,7 @@ export default function Settings() {
     const [actions, setActions] = useState<Action[]>(loadActionFromLocalStorage("actions"))
     const [open, setOpen] = useState(false)
     const [index, setIndex] = useState(-1)
-    const [action, setAction] = useState<Action>({ description: "" })
+    const [action, setAction] = useState<Action>({ description: "Faites en sortes que votre victime " })
 
     const handleActionClick = (index: number) => {
         setIndex(index)
@@ -57,7 +57,9 @@ export default function Settings() {
 
     return (<main className="flex min-h-screen  flex-col items-center justify-between p-10">
         <ArrowBackIcon onClick={() => { router.push('/') }} className='absolute top-7 left-7 fill-gray-600' />
-        <form className="w-full mt-7" onSubmit={(e) => { e.preventDefault(); setActions([...actions, action]); saveToLocalStorage('actions', JSON.stringify([...actions, action])); setAction({ description: "" }) }}>
+        <form className="w-full mt-7" onSubmit={(e) => {
+            e.preventDefault(); setActions([...actions, action]); saveToLocalStorage('actions', JSON.stringify([...actions, action])); setAction({ description: "Faites en sortes que votre victime " })
+        }}>
             <div className="sm:col-span-4 ">
                 <label htmlFor="username" className="block text-md font-medium leading-6 text-gray-900 dark:text-slate-50">
                     Description de l&apos;action

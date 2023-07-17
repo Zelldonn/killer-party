@@ -5,6 +5,8 @@ import ShowingLink from "./components/ShowingLink"
 import { useRouter } from "next/navigation"
 import DistributionDone from "./components/distributionDone"
 import { Player } from "../killer-game/types"
+import Chain from "./components/PlayerSelector"
+import PlayerSelector from "./components/PlayerSelector"
 
 export default function Distribution() {
   const loadChainFromLocalStorage = (key: string): Player[] => {
@@ -28,9 +30,9 @@ export default function Distribution() {
   const [buttonText, setButtonText] = useState<string>("")
 
   useEffect(() => {
-    const chain_ = loadChainFromLocalStorage("chain")
-    setChain(chain_)
-    setButtonText(`Je suis ${chain_[linkIndex].name}`)
+    const chainFromLocalstorage = loadChainFromLocalStorage("chain")
+    setChain(chainFromLocalstorage)
+    setButtonText(`Je suis ${chainFromLocalstorage[linkIndex].name}`)
   }, [])
 
   const handlePrevious = () => {
@@ -69,9 +71,9 @@ export default function Distribution() {
       case "DistributionDone":
         return <DistributionDone />
       case "GiveToPlayer":
-        return <GiveToPlayer name={chain[linkIndex].name}  giveToPreviousPlayer={handlePrevious}/>
+        return <GiveToPlayer name={chain[linkIndex].name}  handleArrowBack={handlePrevious}/>
       case "ShowingAction":
-        return <ShowingLink player={chain[linkIndex]} giveToPreviousPlayer={handlePrevious} />
+        return <ShowingLink player={chain[linkIndex]} handleArrowBack={handlePrevious} />
       default:
         <></>
         break;

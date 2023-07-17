@@ -6,13 +6,12 @@ import { useRouter } from "next/navigation";
 
 interface LinkProps {
     player: Player,
-    giveToPreviousPlayer: Function
+    handleArrowBack: Function
 }
 
-const ShowingLink: React.FC<LinkProps> = ({ player, giveToPreviousPlayer }) => {
-    const router = useRouter()
+const ShowingLink: React.FC<LinkProps> = ({ player, handleArrowBack }) => {
     return (<>
-        <ArrowBack onClick={() => { giveToPreviousPlayer() }} className='absolute top-4 left-7 fill-white	' />
+        <ArrowBack onClick={() => { handleArrowBack() }} className='absolute top-4 left-7 fill-white	' />
 
         <div className="w-96 h-14 pt-3 pb-2.5 bg-slate-500 justify-center items-center inline-flex">
             <div className="text-center text-white text-xl font-black">{player.name}</div>

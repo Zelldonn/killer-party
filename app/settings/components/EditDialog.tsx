@@ -8,14 +8,17 @@ interface EditDialogProps {
 const EditDialog: React.FC<EditDialogProps> = ({ index, handleEventForm, actionDescription }) => {
     const [action, setAction] = useState<string>()
     useEffect(() => {
-        setAction(actionDescription)
+        if(actionDescription)
+            setAction(actionDescription)
+        else
+            setAction("Faites en sortes que votre victime")
     }, [actionDescription])
     return (
         <form>
             <div className="sm:col-span-4">
                 <div className='flex justify-between items-center'>
                     <label htmlFor="username_" className="block text-sm font-medium leading-6 text-gray-900">
-                        Description
+                        Description de l&apos;action
                     </label>
                 </div>
                 <button
@@ -49,7 +52,7 @@ const EditDialog: React.FC<EditDialogProps> = ({ index, handleEventForm, actionD
                     className="flex justify-end rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={(e) => {e.preventDefault(); handleEventForm("update", action) }}
                 >
-                    Sauvegarder
+                    Ajouter l&apos;action
                 </button>
                 <button
                     type="submit"

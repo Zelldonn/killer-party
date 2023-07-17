@@ -97,9 +97,8 @@ export default [
         "Avocat",
         "Architecte",
         "Policier",
-        "Pompiers",
+        "Pompier",
         "Vétérinaire",
-        "Chef",
         "Journaliste",
         "Acteur",
         "Musicien",
@@ -107,7 +106,6 @@ export default [
         "Electricien",
         "Informaticien",
         "Agriculteur",
-        "Designer",
         "Boulanger",
         "Cuisinier",
         "Athlète"
